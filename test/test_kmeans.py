@@ -61,7 +61,7 @@ def test_kmeans_getcentroids():
     assert kmeans.centroids is None, "kmeans object is too young to have centroids"
     kmeans.fit(x_test)
     assert kmeans.centroids.shape == (3, x_test.shape[1]), "kmeans object has the wrong centroids"
-    assert kmeans.get_centroids() == kmeans.centroids, "kmeans not returning the same centroids"
+    assert np.array_equal(kmeans.get_centroids(), kmeans.centroids), "kmeans not returning the same centroids"
 
     with pytest.raises(ValueError):
         kmeans = KMeans(k=3)

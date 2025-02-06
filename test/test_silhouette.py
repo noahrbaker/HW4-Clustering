@@ -35,4 +35,4 @@ def test_silhouette_score():
 
     # test against sklearn
     sk_scores = silhouette_samples(x_test, labels)
-    assert np.isclose(scores, sk_scores), "sklearn silhouette scores are different than custom method"
+    assert np.all(np.isclose(scores, sk_scores)), "sklearn silhouette scores are different than custom method"
