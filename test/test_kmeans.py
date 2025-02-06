@@ -10,7 +10,7 @@ x_test, lab_test = utils.make_clusters(n=500, m=2, k=3, seed=42)
 
 
 def test_kmeans():
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         kmeans = KMeans(k=-1)
     with pytest.raises(TypeError):
         kmeans = KMeans(k=3, tol=int(1))
@@ -27,7 +27,7 @@ def test_kmeans_fit():
     assert kmeans.centroids is None, "kmeans object is too young to have centroids"
     assert kmeans.mse is None, "kmeans object should not have an MSE yet"
     kmeans.fit(x_test)
-    assert kmeans.centroids.ndim == (3, x_test.shape[1]), "kmeans object has the wrong centroids"
+    assert kmeans.centroids.shape == (3, x_test.shape[1]), "kmeans object has the wrong centroids"
     assert isinstance(kmeans.mse, float), "kmeans object should have an MSE after fit method"
 
     with pytest.raises(ValueError):
@@ -60,7 +60,7 @@ def test_kmeans_getcentroids():
     kmeans = KMeans(k=3)
     assert kmeans.centroids is None, "kmeans object is too young to have centroids"
     kmeans.fit(x_test)
-    assert kmeans.centroids.ndim == (3, x_test.shape[1]), "kmeans object has the wrong centroids"
+    assert kmeans.centroids.shape == (3, x_test.shape[1]), "kmeans object has the wrong centroids"
     assert kmeans.get_centroids() == kmeans.centroids, "kmeans not returning the same centroids"
 
     with pytest.raises(ValueError):

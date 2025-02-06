@@ -31,7 +31,7 @@ def test_silhouette_score():
 
     scores = silhouette.score(x_test, labels)
     assert scores.shape[0] == x_test.shape[0], "Not every point got a silhouette score"
-    assert scores >= -1 and scores <= 1, "silhouette scores are out of bounds [-1, 1]"
+    assert all(scores >= -1) and all(scores <= 1), "silhouette scores are out of bounds [-1, 1]"
 
     # test against sklearn
     sk_scores = silhouette_samples(x_test, labels)
